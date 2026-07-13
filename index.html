@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AnatomíaViva · Atlas Clínico Interactivo del Cuerpo Humano</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --navy:#0b2c46;
+      --navy-2:#082238;
+      --teal:#12a3a0;
+      --teal-2:#0e8b88;
+      --teal-soft:#d6f1f0;
+      --blue:#2b6cb0;
+      --blue-soft:#e3eef9;
+      --bg:#eef3f7;
+      --surface:#ffffff;
+      --ink:#132330;
+      --muted:#5a6b78;
+      --line:#e4ecf2;
+      --shadow:0 24px 60px -28px rgba(11,44,70,.5);
+      --shadow-sm:0 12px 30px -16px rgba(11,44,70,.4);
+      --shadow-xs:0 4px 14px -6px rgba(11,44,70,.25);
+      --serif:'Playfair Display', Georgia, serif;
+      --sans:'Inter', 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+      --radius:22px;
+      --grad:linear-gradient(135deg,var(--teal),var(--blue));
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.65;overflow-x:hidden;}
+    h1,h2,h3,h4{font-family:var(--serif);line-height:1.14;letter-spacing:-.3px;}
+    a{text-decoration:none;color:inherit;}
+    img{max-width:100%;display:block;}
+    .container{width:min(1180px,92%);margin-inline:auto;}
+    section{padding:100px 0;position:relative;}
+    .reveal{opacity:0;transform:translateY(36px);transition:opacity .8s ease,transform .8s ease;}
+    .reveal.in{opacity:1;transform:none;}
+
+    /* ---------- TOP BAR ---------- */
+    .topbar{background:var(--navy-2);color:#cfe6ee;font-size:.82rem;}
+    .topbar .container{display:flex;justify-content:space-between;align-items:center;padding:9px 0;gap:14px;flex-wrap:wrap;}
+    .topbar .tb-left{display:flex;gap:20px;flex-wrap:wrap;}
+    .topbar span{display:inline-flex;align-items:center;gap:7px;}
+    .topbar .tb-right{color:var(--teal-soft);}
+
+    /* ---------- NAV ---------- */
+    header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:15px 0;}
+    .brand{display:flex;align-items:center;gap:13px;font-family:var(--serif);font-weight:900;font-size:1.42rem;color:var(--navy);}
+    .brand .logo{width:44px;height:44px;border-radius:13px;background:var(--grad);display:grid;place-items:center;font-size:1.35rem;box-shadow:var(--shadow-sm);color:#fff;}
+    .brand small{display:block;font-family:var(--sans);font-weight:500;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal-2);}
+    .nav ul{display:flex;gap:30px;list-style:none;font-weight:500;font-size:.95rem;align-items:center;}
+    .nav a{color:var(--navy);transition:color .2s;position:relative;}
+    .nav a:not(.nav-cta):after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--teal);transition:width .25s;}
+    .nav a:not(.nav-cta):hover:after{width:100%;}
+    .nav-cta{background:var(--navy);color:#fff !important;padding:10px 22px;border-radius:30px;font-weight:600;box-shadow:var(--shadow-sm);}
+    .nav-cta:hover{background:var(--teal);}
+    .menu-btn{display:none;background:none;border:none;font-size:1.8rem;color:var(--navy);cursor:pointer;}
+
+    /* ---------- HERO ---------- */
+    .hero{position:relative;min-height:90vh;display:flex;align-items:center;overflow:hidden;
+      background:linear-gradient(90deg, rgba(238,243,247,.98) 0%, rgba(238,243,247,.9) 40%, rgba(238,243,247,.35) 70%, rgba(238,243,247,.08) 100%),
+        url('PORTADA%20PAGINA%20WEB.png') center right / cover no-repeat;}
+    .hero-content{max-width:640px;padding:70px 0;}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;background:#fff;color:var(--navy);font-weight:600;font-size:.76rem;letter-spacing:.09em;text-transform:uppercase;padding:9px 20px;border-radius:30px;margin-bottom:28px;box-shadow:var(--shadow-xs);}
+    .eyebrow .pulse{width:9px;height:9px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 0 rgba(18,163,160,.6);animation:pulse 2s infinite;}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(18,163,160,.55);}70%{box-shadow:0 0 0 12px rgba(18,163,160,0);}100%{box-shadow:0 0 0 0 rgba(18,163,160,0);}}
+    .hero h1{font-size:clamp(2.8rem,6.4vw,4.9rem);color:var(--navy);font-weight:900;margin-bottom:24px;}
+    .hero h1 em{font-style:italic;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+    .hero p{font-size:1.2rem;color:var(--muted);margin-bottom:38px;max-width:540px;}
+    .btns{display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
+    .btn{padding:16px 34px;border-radius:40px;font-weight:600;font-size:1rem;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s;border:2px solid transparent;display:inline-flex;align-items:center;gap:9px;}
+    .btn-primary{background:var(--navy);color:#fff;box-shadow:var(--shadow);}
+    .btn-primary:hover{transform:translateY(-3px);background:var(--teal);}
+    .btn-ghost{background:rgba(255,255,255,.7);border-color:var(--navy);color:var(--navy);}
+    .btn-ghost:hover{background:var(--navy);color:#fff;}
+    .hero-trust{margin-top:38px;display:flex;gap:26px;flex-wrap:wrap;color:var(--muted);font-size:.86rem;}
+    .hero-trust span{display:inline-flex;align-items:center;gap:8px;font-weight:500;}
+    .hero-trust b{color:var(--teal-2);}
+
+    /* ---------- STATS ---------- */
+    .stats{background:var(--navy);color:#fff;position:relative;overflow:hidden;}
+    .stats::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 15% 20%,rgba(18,163,160,.28),transparent 45%),radial-gradient(circle at 85% 80%,rgba(43,108,176,.28),transparent 45%);}
+    .stats .container{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:52px 0;position:relative;}
+    .stat{text-align:center;}
+    .stat .num{font-family:var(--serif);font-size:3rem;font-weight:800;background:linear-gradient(120deg,#7fe0dd,#bcd7f5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1;}
+    .stat .lbl{font-size:.92rem;color:#c6dbe8;margin-top:10px;letter-spacing:.02em;}
+
+    /* ---------- SECTION HEAD ---------- */
+    .section-head{text-align:center;max-width:720px;margin:0 auto 64px;}
+    .kicker{display:inline-flex;align-items:center;gap:8px;color:var(--teal-2);font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:.78rem;background:var(--teal-soft);padding:7px 16px;border-radius:20px;}
+    .section-head h2{font-size:clamp(2.2rem,4.4vw,3.1rem);color:var(--navy);margin:18px 0 16px;font-weight:800;}
+    .section-head p{color:var(--muted);font-size:1.1rem;}
+
+    /* ---------- MISIÓN / VISIÓN ---------- */
+    .mv-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+    .mv-card{background:var(--surface);border-radius:var(--radius);padding:50px 44px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;border:1px solid var(--line);}
+    .mv-card:hover{transform:translateY(-8px);box-shadow:var(--shadow);}
+    .mv-card::before{content:"";position:absolute;top:0;left:0;width:100%;height:6px;background:var(--grad);}
+    .mv-card .icon{width:70px;height:70px;border-radius:20px;background:var(--teal-soft);display:grid;place-items:center;font-size:2.1rem;margin-bottom:26px;}
+    .mv-card h3{font-size:1.95rem;color:var(--navy);margin-bottom:18px;}
+    .mv-card p{color:var(--muted);font-size:1.04rem;}
+
+    /* ---------- SERVICIOS ---------- */
+    #servicios{background:linear-gradient(180deg,var(--bg) 0%,#e6eef4 100%);}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+    .card{background:var(--surface);border-radius:var(--radius);padding:38px 32px;box-shadow:var(--shadow-xs);transition:transform .3s,box-shadow .3s;border:1px solid var(--line);position:relative;overflow:hidden;}
+    .card::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+    .card:hover{transform:translateY(-10px);box-shadow:var(--shadow);}
+    .card:hover::after{transform:scaleX(1);}
+    .card .icon{width:64px;height:64px;border-radius:17px;background:var(--grad);color:#fff;display:grid;place-items:center;font-size:1.7rem;margin-bottom:24px;box-shadow:var(--shadow-sm);}
+    .card h3{font-size:1.32rem;color:var(--navy);margin-bottom:12px;}
+    .card p{color:var(--muted);font-size:1rem;}
+
+    /* ---------- VIDEO ---------- */
+    #recursos{background:var(--navy-2);color:#fff;overflow:hidden;}
+    #recursos::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 10%,rgba(18,163,160,.22),transparent 40%);}
+    #recursos .section-head h2{color:#fff;}
+    #recursos .section-head p{color:#c6dbe8;}
+    #recursos .kicker{background:rgba(18,163,160,.18);color:#7fe0dd;}
+    .video-wrap{display:grid;grid-template-columns:1.45fr 1fr;gap:40px;align-items:center;position:relative;}
+    .video-player{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:#000;border:1px solid rgba(255,255,255,.12);}
+    .video-player video{width:100%;display:block;background:#000;}
+    .video-info .tag{display:inline-block;background:rgba(18,163,160,.22);color:#7fe0dd;font-weight:600;font-size:.82rem;padding:7px 16px;border-radius:20px;margin-bottom:20px;}
+    .video-info h3{font-size:2rem;color:#fff;margin-bottom:14px;}
+    .video-info p{color:#c6dbe8;margin-bottom:22px;}
+    .video-info ul{list-style:none;}
+    .video-info li{display:flex;gap:11px;align-items:center;margin-bottom:13px;color:#e5f2f6;}
+    .video-info li::before{content:"✓";width:22px;height:22px;flex-shrink:0;background:var(--teal);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:.72rem;font-weight:800;}
+
+    /* ---------- EQUIPO ---------- */
+    #equipo{background:linear-gradient(180deg,#e6eef4 0%,var(--bg) 100%);}
+    .team-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;}
+    .member{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow-xs);transition:transform .3s,box-shadow .3s;border:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column;}
+    .member:hover{transform:translateY(-8px);box-shadow:var(--shadow);}
+    /* CV thumbnail */
+    .cv-thumb{position:relative;height:170px;background:#f1f5f8;cursor:pointer;overflow:hidden;border-bottom:1px solid var(--line);}
+    .cv-thumb iframe{width:200%;height:340px;border:0;transform:scale(.5);transform-origin:top left;pointer-events:none;background:#fff;}
+    .cv-thumb .noimg{width:100%;height:100%;display:grid;place-items:center;color:#9fb0bd;font-size:2.6rem;background:repeating-linear-gradient(45deg,#eef3f7,#eef3f7 12px,#e7eef4 12px,#e7eef4 24px);}
+    .cv-thumb .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,44,70,0) 40%,rgba(11,44,70,.72));opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;justify-content:center;padding-bottom:16px;}
+    .cv-thumb:hover .ov{opacity:1;}
+    .cv-thumb .ov span{background:#fff;color:var(--navy);font-weight:600;font-size:.82rem;padding:8px 16px;border-radius:20px;display:inline-flex;gap:6px;align-items:center;}
+    .member-body{padding:22px 18px 26px;text-align:center;position:relative;}
+    .avatar{width:64px;height:64px;border-radius:50%;margin:-54px auto 12px;display:grid;place-items:center;font-family:var(--serif);font-weight:800;font-size:1.3rem;color:#fff;border:4px solid #fff;box-shadow:var(--shadow-sm);position:relative;z-index:2;}
+    .a1{background:linear-gradient(140deg,#12a3a0,#0b2c46);}
+    .a2{background:linear-gradient(140deg,#2b6cb0,#0b2c46);}
+    .a3{background:linear-gradient(140deg,#0b2c46,#12a3a0);}
+    .a4{background:linear-gradient(140deg,#12a3a0,#2b6cb0);}
+    .a5{background:linear-gradient(140deg,#2b6cb0,#12a3a0);}
+    .member h3{font-size:1.04rem;color:var(--navy);margin-bottom:5px;font-family:var(--sans);font-weight:700;}
+    .member .role{color:var(--teal-2);font-size:.82rem;font-weight:600;min-height:34px;}
+    .member .cv-btn{margin-top:14px;display:inline-flex;align-items:center;gap:7px;font-size:.82rem;color:#fff;background:var(--navy);border-radius:22px;padding:8px 18px;transition:.2s;font-weight:600;cursor:pointer;border:none;}
+    .member .cv-btn:hover{background:var(--teal);}
+    .member .cv-btn.soon{background:#eef3f7;color:#9fb0bd;cursor:default;}
+
+    /* ---------- ORGANIGRAMA ---------- */
+    .org{margin-top:76px;text-align:center;}
+    .org h3{font-size:1.8rem;color:var(--navy);margin-bottom:40px;}
+    .org-top{display:flex;justify-content:center;}
+    .org-row{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;}
+    .org-node{background:var(--surface);color:var(--navy);padding:19px 26px;border-radius:15px;font-weight:700;min-width:185px;box-shadow:var(--shadow-xs);border:1px solid var(--line);}
+    .org-node small{display:block;font-weight:500;color:var(--muted);font-size:.8rem;margin-top:4px;}
+    .org-node.lead{background:var(--grad);color:#fff;border:none;}
+    .org-node.lead small{color:#dcf3f2;}
+    .org-connector{width:2px;height:36px;background:linear-gradient(var(--teal),transparent);margin:0 auto;}
+
+    /* ---------- TESTIMONIOS ---------- */
+    .test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+    .test{background:var(--surface);border-radius:var(--radius);padding:36px 32px;box-shadow:var(--shadow-xs);position:relative;transition:transform .3s,box-shadow .3s;border:1px solid var(--line);}
+    .test:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+    .stars{color:#f5a623;margin-bottom:10px;font-size:.95rem;letter-spacing:2px;}
+    .test p{color:var(--muted);font-style:italic;margin-bottom:24px;font-size:1.02rem;}
+    .test .who{display:flex;align-items:center;gap:13px;}
+    .test .who .ava{width:48px;height:48px;border-radius:50%;background:var(--grad);color:#fff;display:grid;place-items:center;font-weight:700;}
+    .test .who strong{color:var(--navy);font-size:.96rem;display:block;}
+    .test .who small{color:var(--muted);}
+
+    /* ---------- CONTACTO ---------- */
+    #contacto{background:var(--navy);color:#fff;position:relative;overflow:hidden;}
+    #contacto::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 10% 90%,rgba(18,163,160,.22),transparent 42%);}
+    #contacto .section-head h2{color:#fff;}
+    #contacto .section-head p{color:var(--teal-soft);}
+    #contacto .kicker{background:rgba(18,163,160,.18);color:#7fe0dd;}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;position:relative;}
+    .contact-info li{list-style:none;display:flex;gap:16px;align-items:flex-start;margin-bottom:26px;}
+    .contact-info .ci{width:50px;height:50px;border-radius:14px;background:rgba(255,255,255,.1);display:grid;place-items:center;font-size:1.3rem;flex-shrink:0;}
+    .contact-info strong{display:block;font-size:1.05rem;margin-bottom:2px;}
+    .contact-info span{color:var(--teal-soft);font-size:.94rem;}
+    form{background:rgba(255,255,255,.06);padding:40px;border-radius:var(--radius);border:1px solid rgba(255,255,255,.12);}
+    form label{display:block;font-size:.86rem;margin-bottom:7px;font-weight:500;}
+    form input,form textarea{width:100%;padding:14px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;margin-bottom:20px;font-family:inherit;font-size:.95rem;}
+    form input::placeholder,form textarea::placeholder{color:rgba(255,255,255,.5);}
+    form input:focus,form textarea:focus{outline:none;border-color:var(--teal);background:rgba(255,255,255,.12);}
+    form button{width:100%;background:var(--teal);color:#fff;border:none;padding:16px;border-radius:12px;font-weight:700;font-size:1rem;cursor:pointer;transition:.2s;}
+    form button:hover{background:#fff;color:var(--navy);}
+
+    /* ---------- FOOTER ---------- */
+    footer{background:var(--navy-2);color:#c6dbe8;padding:52px 0 30px;text-align:center;}
+    footer .brand{justify-content:center;color:#fff;margin-bottom:16px;}
+    footer .fnames{font-size:.9rem;opacity:.85;margin:8px 0;}
+    footer .copy{font-size:.84rem;opacity:.6;margin-top:18px;border-top:1px solid rgba(255,255,255,.1);padding-top:22px;}
+
+    /* ---------- CV MODAL ---------- */
+    .cv-modal{position:fixed;inset:0;z-index:200;background:rgba(8,34,56,.72);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:24px;opacity:0;transition:opacity .3s;}
+    .cv-modal.open{display:flex;opacity:1;}
+    .cv-modal-inner{background:#fff;border-radius:18px;width:min(860px,100%);height:min(90vh,1000px);display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow);transform:translateY(20px);transition:transform .3s;}
+    .cv-modal.open .cv-modal-inner{transform:none;}
+    .cv-modal-head{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--line);gap:12px;}
+    .cv-modal-head .t{display:flex;align-items:center;gap:12px;min-width:0;}
+    .cv-modal-head .t .ic{width:38px;height:38px;border-radius:11px;background:var(--grad);color:#fff;display:grid;place-items:center;flex-shrink:0;}
+    .cv-modal-head .t strong{color:var(--navy);font-size:1.02rem;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .cv-modal-head .t small{color:var(--muted);font-size:.8rem;}
+    .cv-modal-actions{display:flex;gap:10px;flex-shrink:0;}
+    .cv-modal-actions a,.cv-modal-actions button{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:10px;padding:9px 14px;font-size:.85rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.2s;font-family:inherit;}
+    .cv-modal-actions a:hover{background:var(--teal-soft);border-color:var(--teal);}
+    .cv-modal-actions .close{background:var(--navy);color:#fff;border-color:var(--navy);}
+    .cv-modal-actions .close:hover{background:var(--teal);border-color:var(--teal);}
+    .cv-modal-body{flex:1;background:#f1f5f8;}
+    .cv-modal-body iframe{width:100%;height:100%;border:0;}
+
+    /* back to top */
+    .top-btn{position:fixed;right:26px;bottom:26px;width:52px;height:52px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:1.3rem;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.3s;z-index:90;cursor:pointer;border:none;}
+    .top-btn.show{opacity:1;pointer-events:auto;}
+    .top-btn:hover{background:var(--teal);}
+
+    /* ---------- RESPONSIVE ---------- */
+    @media(max-width:960px){
+      .cards,.test-grid{grid-template-columns:1fr 1fr;}
+      .team-grid{grid-template-columns:repeat(3,1fr);}
+      .video-wrap{grid-template-columns:1fr;}
+      .stats .container{grid-template-columns:repeat(2,1fr);gap:30px;}
+    }
+    @media(max-width:720px){
+      section{padding:72px 0;}
+      .topbar .tb-right{display:none;}
+      .nav ul{position:fixed;inset:56px 0 auto 0;background:#fff;flex-direction:column;padding:26px;gap:20px;transform:translateY(-170%);transition:transform .35s;box-shadow:var(--shadow);}
+      .nav ul.open{transform:translateY(0);}
+      .menu-btn{display:block;}
+      .mv-grid,.contact-grid{grid-template-columns:1fr;}
+      .cards,.test-grid,.team-grid{grid-template-columns:1fr 1fr;}
+      .hero{min-height:auto;background:linear-gradient(180deg, rgba(238,243,247,.95), rgba(238,243,247,.6)), url('PORTADA%20PAGINA%20WEB.png') center / cover no-repeat;}
+    }
+    @media(max-width:480px){
+      .cards,.test-grid,.team-grid{grid-template-columns:1fr;}
+      .mv-card{padding:38px 28px;}
+      .cv-modal-head .t small{display:none;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="container">
+      <div class="tb-left">
+        <span>🏥 Facultad de Ciencias Médicas — Universidad de Guayaquil</span>
+        <span>✉️ contacto@anatomiaviva.edu.ec</span>
+      </div>
+      <div class="tb-right">Plataforma educativa · Acceso 100% gratuito</div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <span class="logo">🩺</span>
+        <div>AnatomíaViva<small>Atlas Clínico Interactivo</small></div>
+      </div>
+      <button class="menu-btn" aria-label="Menú" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
+      <ul id="menu">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#mision">Misión</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#recursos">Recursos</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+        <li><a href="#contacto" class="nav-cta">Contacto</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="container">
+      <div class="hero-content">
+        <span class="eyebrow"><span class="pulse"></span> Ciencias de la Salud · Anatomía Humana</span>
+        <h1>El cuerpo humano, <em>al alcance de todos</em></h1>
+        <p>Una plataforma educativa dinámica e interactiva para explorar, comprender y dominar la anatomía humana con recursos visuales, audios y visión 360°.</p>
+        <div class="btns">
+          <a href="#servicios" class="btn btn-primary">Explorar la plataforma →</a>
+          <a href="#recursos" class="btn btn-ghost">▶ Ver recursos</a>
+        </div>
+        <div class="hero-trust">
+          <span>🧬 <b>Rigor</b> científico</span>
+          <span>🎓 <b>Enfoque</b> pedagógico</span>
+          <span>💙 <b>Cuidado</b> de la salud</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="container">
+      <div class="stat"><div class="num">360°</div><div class="lbl">Visión interactiva</div></div>
+      <div class="stat"><div class="num">200+</div><div class="lbl">Láminas y recursos</div></div>
+      <div class="stat"><div class="num">50+</div><div class="lbl">Videos educativos</div></div>
+      <div class="stat"><div class="num">100%</div><div class="lbl">Acceso gratuito</div></div>
+    </div>
+  </div>
+
+  <!-- MISIÓN Y VISIÓN -->
+  <section id="mision">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">Quiénes somos</span>
+        <h2>Misión y Visión</h2>
+        <p>Los pilares que guían nuestra forma de enseñar y aprender anatomía.</p>
+      </div>
+      <div class="mv-grid">
+        <div class="mv-card reveal">
+          <div class="icon">🎯</div>
+          <h3>Misión</h3>
+          <p>Proporcionar una plataforma educativa accesible, dinámica e interactiva que permita a estudiantes y apasionados de las ciencias de la salud explorar, comprender y dominar la complejidad del cuerpo humano desde todas las perspectivas. A través de recursos visuales, audios e integrales de alta calidad, transformamos el estudio de la anatomía en una experiencia de aprendizaje inmersiva, rigurosa y colaborativa.</p>
+        </div>
+        <div class="mv-card reveal">
+          <div class="icon">🔭</div>
+          <h3>Visión</h3>
+          <p>Convertirnos para el año 2030 en la comunidad digital y el atlas interactivo de referencia para la enseñanza de la anatomía humana, siendo reconocidos por nuestra innovación tecnológica —visión 360°—, claridad pedagógica y por conectar de manera efectiva el conocimiento teórico con la práctica clínica y el cuidado de la salud.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">Qué ofrecemos</span>
+        <h2>Nuestros recursos y servicios</h2>
+        <p>Herramientas pensadas para hacer del estudio de la anatomía una experiencia inmersiva.</p>
+      </div>
+      <div class="cards">
+        <div class="card reveal"><div class="icon">🧠</div><h3>Atlas Interactivo 360°</h3><p>Modelos del cuerpo humano que puedes rotar y explorar capa por capa: huesos, músculos, órganos y sistemas.</p></div>
+        <div class="card reveal"><div class="icon">🎬</div><h3>Videos Educativos</h3><p>Clases y disecciones explicadas paso a paso, con narración clara y ejemplos clínicos reales.</p></div>
+        <div class="card reveal"><div class="icon">🎧</div><h3>Audios de Estudio</h3><p>Contenido en audio para repasar la terminología y los conceptos clave en cualquier momento y lugar.</p></div>
+        <div class="card reveal"><div class="icon">📚</div><h3>Biblioteca Visual</h3><p>Láminas, esquemas e infografías de alta calidad organizadas por sistema anatómico.</p></div>
+        <div class="card reveal"><div class="icon">📝</div><h3>Evaluaciones Interactivas</h3><p>Cuestionarios y autoevaluaciones que refuerzan el aprendizaje y miden tu progreso.</p></div>
+        <div class="card reveal"><div class="icon">🤝</div><h3>Comunidad Colaborativa</h3><p>Un espacio donde estudiantes y docentes comparten dudas, apuntes y experiencias.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECURSOS / VIDEO -->
+  <section id="recursos">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">Aprende viendo</span>
+        <h2>Video destacado</h2>
+        <p>Contenido audiovisual creado por nuestro equipo para acompañar tu estudio.</p>
+      </div>
+      <div class="video-wrap reveal">
+        <div class="video-player">
+          <video controls preload="metadata" poster="PORTADA%20PAGINA%20WEB.png">
+            <source src="Videos/Krysthel%20Romero%20-%20Articulaciones.mp4" type="video/mp4">
+            Tu navegador no soporta la reproducción de video.
+          </video>
+        </div>
+        <div class="video-info">
+          <span class="tag">🦴 Sistema Óseo</span>
+          <h3>Las Articulaciones</h3>
+          <p>Un recorrido claro y didáctico por los distintos tipos de articulaciones del cuerpo humano: su clasificación, estructura y función en el movimiento.</p>
+          <ul>
+            <li>Explicación paso a paso</li>
+            <li>Ejemplos aplicados a la práctica clínica</li>
+            <li>Presentado por Krysthel Romero</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPO -->
+  <section id="equipo">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">Nuestro equipo</span>
+        <h2>Las personas detrás del proyecto</h2>
+        <p>Estudiantes de la carrera de Enfermería unidas por la pasión de enseñar anatomía. Haz clic en cada tarjeta para ver el CV.</p>
+      </div>
+      <div class="team-grid">
+        <div class="member reveal">
+          <div class="cv-thumb" onclick="openCV('Curriculum%20Vitae/Curr%C3%ADculum%20Vitae%20CV%20Holguin%20Luna%20Karen.pdf','Karen Nohelia Holguín','Coordinación General')">
+            <iframe src="Curriculum%20Vitae/Curr%C3%ADculum%20Vitae%20CV%20Holguin%20Luna%20Karen.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH" title="CV Karen Holguín" scrolling="no"></iframe>
+            <div class="ov"><span>🔍 Ver CV</span></div>
+          </div>
+          <div class="member-body">
+            <div class="avatar a1">NH</div>
+            <h3>Karen Nohelia Holguín</h3>
+            <div class="role">Coordinación General</div>
+            <button class="cv-btn" onclick="openCV('Curriculum%20Vitae/Curr%C3%ADculum%20Vitae%20CV%20Holguin%20Luna%20Karen.pdf','Karen Nohelia Holguín','Coordinación General')">📄 Ver CV</button>
+          </div>
+        </div>
+
+        <div class="member reveal">
+          <div class="cv-thumb" onclick="openCV('Curriculum%20Vitae/Curriculum_Vitae_Britney_Rogel.pdf','Britney Rogel Mera','Contenido y Recursos')">
+            <iframe src="Curriculum%20Vitae/Curriculum_Vitae_Britney_Rogel.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH" title="CV Britney Rogel" scrolling="no"></iframe>
+            <div class="ov"><span>🔍 Ver CV</span></div>
+          </div>
+          <div class="member-body">
+            <div class="avatar a2">BR</div>
+            <h3>Britney Rogel Mera</h3>
+            <div class="role">Contenido y Recursos</div>
+            <button class="cv-btn" onclick="openCV('Curriculum%20Vitae/Curriculum_Vitae_Britney_Rogel.pdf','Britney Rogel Mera','Contenido y Recursos')">📄 Ver CV</button>
+          </div>
+        </div>
+
+        <div class="member reveal">
+          <div class="cv-thumb" onclick="openCV('Curriculum%20Vitae/Curriculum%20Vitae%20Tatiana%20Su%C3%A1rez.pdf','Tatiana Suárez Reyna','Diseño Visual')">
+            <iframe src="Curriculum%20Vitae/Curriculum%20Vitae%20Tatiana%20Su%C3%A1rez.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH" title="CV Tatiana Suárez" scrolling="no"></iframe>
+            <div class="ov"><span>🔍 Ver CV</span></div>
+          </div>
+          <div class="member-body">
+            <div class="avatar a3">TS</div>
+            <h3>Tatiana Suárez Reyna</h3>
+            <div class="role">Diseño Visual</div>
+            <button class="cv-btn" onclick="openCV('Curriculum%20Vitae/Curriculum%20Vitae%20Tatiana%20Su%C3%A1rez.pdf','Tatiana Suárez Reyna','Diseño Visual')">📄 Ver CV</button>
+          </div>
+        </div>
+
+        <div class="member reveal">
+          <div class="cv-thumb" onclick="openCV('Curriculum%20Vitae/curriculum%20Vitae%20Romero%20Krysthel.pdf','Krysthel Romero','Producción Audiovisual')">
+            <iframe src="Curriculum%20Vitae/curriculum%20Vitae%20Romero%20Krysthel.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH" title="CV Krysthel Romero" scrolling="no"></iframe>
+            <div class="ov"><span>🔍 Ver CV</span></div>
+          </div>
+          <div class="member-body">
+            <div class="avatar a4">KR</div>
+            <h3>Krysthel Romero</h3>
+            <div class="role">Producción Audiovisual</div>
+            <button class="cv-btn" onclick="openCV('Curriculum%20Vitae/curriculum%20Vitae%20Romero%20Krysthel.pdf','Krysthel Romero','Producción Audiovisual')">📄 Ver CV</button>
+          </div>
+        </div>
+
+        <div class="member reveal">
+          <div class="cv-thumb">
+            <div class="noimg">📄</div>
+          </div>
+          <div class="member-body">
+            <div class="avatar a5">AP</div>
+            <h3>Angie Piguave</h3>
+            <div class="role">Comunidad y Difusión</div>
+            <button class="cv-btn soon">CV próximamente</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ORGANIGRAMA -->
+      <div class="org reveal">
+        <h3>Estructura organizativa</h3>
+        <div class="org-top">
+          <div class="org-node lead">Karen Nohelia Holguín<small>Coordinación General</small></div>
+        </div>
+        <div class="org-connector"></div>
+        <div class="org-row">
+          <div class="org-node">Britney Rogel<small>Contenido y Recursos</small></div>
+          <div class="org-node">Tatiana Suárez<small>Diseño Visual</small></div>
+          <div class="org-node">Krysthel Romero<small>Producción Audiovisual</small></div>
+          <div class="org-node">Angie Piguave<small>Comunidad y Difusión</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section id="testimonios">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">Casos de estudio</span>
+        <h2>Lo que dicen nuestros usuarios</h2>
+        <p>Experiencias de estudiantes y docentes que aprenden con AnatomíaViva.</p>
+      </div>
+      <div class="test-grid">
+        <div class="test reveal">
+          <div class="stars">★★★★★</div>
+          <p>“La visión 360° me ayudó a entender la relación entre los huesos y músculos como ningún libro lo había logrado. Aprobé anatomía con la mejor nota.”</p>
+          <div class="who"><div class="ava">MG</div><div><strong>María González</strong><small>Estudiante de Medicina</small></div></div>
+        </div>
+        <div class="test reveal">
+          <div class="stars">★★★★★</div>
+          <p>“Uso los audios mientras voy a la universidad. Repasar la terminología en cualquier momento cambió por completo mi forma de estudiar.”</p>
+          <div class="who"><div class="ava">JC</div><div><strong>Juan Carlos Peña</strong><small>Estudiante de Enfermería</small></div></div>
+        </div>
+        <div class="test reveal">
+          <div class="stars">★★★★★</div>
+          <p>“Como docente, la biblioteca visual y las evaluaciones interactivas son un recurso increíble para mis clases. Mis estudiantes participan mucho más.”</p>
+          <div class="who"><div class="ava">DL</div><div><strong>Dra. Laura Mendoza</strong><small>Docente de Ciencias Médicas</small></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">Hablemos</span>
+        <h2>Contacto e información</h2>
+        <p>¿Tienes dudas o quieres formar parte de la comunidad? Escríbenos.</p>
+      </div>
+      <div class="contact-grid">
+        <ul class="contact-info reveal">
+          <li><div class="ci">📍</div><div><strong>Ubicación</strong><span>Facultad de Ciencias Médicas, Universidad de Guayaquil — Guayaquil, Ecuador</span></div></li>
+          <li><div class="ci">✉️</div><div><strong>Correo</strong><span>contacto@anatomiaviva.edu.ec</span></div></li>
+          <li><div class="ci">📞</div><div><strong>Teléfono</strong><span>+593 4 000 0000</span></div></li>
+          <li><div class="ci">🌐</div><div><strong>Redes sociales</strong><span>@AnatomiaViva en Instagram, Facebook y TikTok</span></div></li>
+        </ul>
+        <form class="reveal" onsubmit="event.preventDefault(); alert('¡Gracias por tu mensaje! Te responderemos pronto.'); this.reset();">
+          <label>Nombre</label>
+          <input type="text" placeholder="Tu nombre completo" required>
+          <label>Correo electrónico</label>
+          <input type="email" placeholder="tucorreo@ejemplo.com" required>
+          <label>Mensaje</label>
+          <textarea rows="4" placeholder="Escribe tu mensaje..." required></textarea>
+          <button type="submit">Enviar mensaje</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="brand"><span class="logo">🩺</span> AnatomíaViva</div>
+      <p class="fnames">Atlas clínico interactivo del cuerpo humano · Proyecto académico</p>
+      <p class="fnames">Integrantes: Karen Nohelia Holguín · Britney Rogel · Tatiana Suárez · Krysthel Romero · Angie Piguave</p>
+      <p class="copy">© 2026 AnatomíaViva · Facultad de Ciencias Médicas, Universidad de Guayaquil.</p>
+    </div>
+  </footer>
+
+  <!-- CV MODAL -->
+  <div class="cv-modal" id="cvModal" onclick="if(event.target===this)closeCV()">
+    <div class="cv-modal-inner">
+      <div class="cv-modal-head">
+        <div class="t">
+          <span class="ic">📄</span>
+          <div><strong id="cvName">Currículum</strong><small id="cvRole"></small></div>
+        </div>
+        <div class="cv-modal-actions">
+          <a id="cvOpen" href="#" target="_blank" title="Abrir en pestaña nueva">↗ Abrir</a>
+          <a id="cvDownload" href="#" download title="Descargar">⬇ Descargar</a>
+          <button class="close" onclick="closeCV()">✕ Cerrar</button>
+        </div>
+      </div>
+      <div class="cv-modal-body">
+        <iframe id="cvFrame" title="Vista previa del CV"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <button class="top-btn" id="topBtn" aria-label="Subir" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+  <script>
+    // menú móvil
+    document.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>document.getElementById('menu').classList.remove('open')));
+    // reveal on scroll
+    const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    // back to top
+    const topBtn=document.getElementById('topBtn');
+    window.addEventListener('scroll',()=>{topBtn.classList.toggle('show',window.scrollY>500);});
+    // CV modal
+    const modal=document.getElementById('cvModal');
+    function openCV(url,name,role){
+      document.getElementById('cvFrame').src=url+'#view=FitH';
+      document.getElementById('cvName').textContent=name;
+      document.getElementById('cvRole').textContent=role||'';
+      document.getElementById('cvOpen').href=url;
+      document.getElementById('cvDownload').href=url;
+      modal.classList.add('open');
+      document.body.style.overflow='hidden';
+    }
+    function closeCV(){
+      modal.classList.remove('open');
+      document.getElementById('cvFrame').src='';
+      document.body.style.overflow='';
+    }
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCV();});
+  </script>
+</body>
+</html>
