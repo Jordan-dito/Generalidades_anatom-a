@@ -283,6 +283,13 @@
     form input:focus,form textarea:focus{outline:none;border-color:var(--teal);background:rgba(255,255,255,.12);box-shadow:0 0 0 4px rgba(18,163,160,.18);}
     form button{width:100%;background:var(--teal);color:#fff;border:none;padding:16px;border-radius:13px;font-weight:700;font-size:1rem;cursor:pointer;transition:background .25s,transform .25s;font-family:inherit;}
     form button:hover{background:#fff;color:var(--navy);transform:translateY(-2px);}
+    /* redes sociales */
+    .socials{display:flex;gap:12px;margin-top:10px;}
+    .soc{width:46px;height:46px;border-radius:14px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);display:grid;place-items:center;color:#fff;transition:transform .25s var(--ease),background .25s,border-color .25s,box-shadow .25s;}
+    .soc svg{width:21px;height:21px;fill:currentColor;display:block;}
+    .soc:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm);}
+    .soc.ig:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border-color:transparent;}
+    .soc.fb:hover{background:#1877f2;border-color:#1877f2;}
     .form-ok{display:none;align-items:center;gap:12px;background:rgba(18,163,160,.18);border:1px solid rgba(127,224,221,.4);color:#d6f1f0;padding:15px 18px;border-radius:13px;margin-top:18px;font-size:.93rem;}
     .form-ok.show{display:flex;animation:fadeUp .5s var(--ease);}
     @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
@@ -722,7 +729,16 @@
           <li><div class="ci">📍</div><div><strong>Ubicación</strong><span>Facultad de Ciencias Médicas, Universidad de Guayaquil — Guayaquil, Ecuador</span></div></li>
           <li><div class="ci">✉️</div><div><strong>Correo</strong><span>contacto@anatomiaviva.edu.ec</span></div></li>
           <li><div class="ci">📞</div><div><strong>Teléfono</strong><span>+593 4 000 0000</span></div></li>
-          <li><div class="ci">🌐</div><div><strong>Redes sociales</strong><span>@AnatomiaViva en Instagram, Facebook y TikTok</span></div></li>
+          <li><div class="ci">🌐</div><div><strong>Redes sociales</strong><span>Síguenos en Instagram y Facebook</span>
+            <div class="socials">
+              <a class="soc ig" href="https://www.instagram.com/sstt90hja/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1M12 0C8.7 0 8.3 0 7 .1 5.7.1 4.9.3 4.1.6c-.8.3-1.4.7-2.1 1.4C1.3 2.7.9 3.3.6 4.1.3 4.9.1 5.7.1 7 0 8.3 0 8.7 0 12s0 3.7.1 5c0 1.3.2 2.1.5 2.9.3.8.7 1.4 1.4 2.1.7.7 1.3 1.1 2.1 1.4.8.3 1.6.5 2.9.5 1.3.1 1.7.1 5 .1s3.7 0 5-.1c1.3 0 2.1-.2 2.9-.5.8-.3 1.4-.7 2.1-1.4.7-.7 1.1-1.3 1.4-2.1.3-.8.5-1.6.5-2.9.1-1.3.1-1.7.1-5s0-3.7-.1-5c0-1.3-.2-2.1-.5-2.9-.3-.8-.7-1.4-1.4-2.1C20.7 1.3 20.1.9 19.3.6 18.5.3 17.7.1 16.4.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.8-10.4a1.4 1.4 0 1 1-2.9 0 1.4 1.4 0 0 1 2.9 0z"/></svg>
+              </a>
+              <a class="soc fb" href="https://www.facebook.com/profile.php?id=61591724108695" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.09 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.49h-2.79V24C19.61 23.09 24 18.1 24 12.07z"/></svg>
+              </a>
+            </div>
+          </div></li>
         </ul>
         <form class="reveal d1" id="contactForm">
           <label for="cf-name">Nombre</label>
@@ -742,6 +758,14 @@
   <footer>
     <div class="container">
       <div class="brand"><span class="logo">🩺</span> AnatomíaViva</div>
+      <div class="socials" style="justify-content:center;margin:14px 0 6px;">
+        <a class="soc ig" href="https://www.instagram.com/sstt90hja/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1M12 0C8.7 0 8.3 0 7 .1 5.7.1 4.9.3 4.1.6c-.8.3-1.4.7-2.1 1.4C1.3 2.7.9 3.3.6 4.1.3 4.9.1 5.7.1 7 0 8.3 0 8.7 0 12s0 3.7.1 5c0 1.3.2 2.1.5 2.9.3.8.7 1.4 1.4 2.1.7.7 1.3 1.1 2.1 1.4.8.3 1.6.5 2.9.5 1.3.1 1.7.1 5 .1s3.7 0 5-.1c1.3 0 2.1-.2 2.9-.5.8-.3 1.4-.7 2.1-1.4.7-.7 1.1-1.3 1.4-2.1.3-.8.5-1.6.5-2.9.1-1.3.1-1.7.1-5s0-3.7-.1-5c0-1.3-.2-2.1-.5-2.9-.3-.8-.7-1.4-1.4-2.1C20.7 1.3 20.1.9 19.3.6 18.5.3 17.7.1 16.4.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.8-10.4a1.4 1.4 0 1 1-2.9 0 1.4 1.4 0 0 1 2.9 0z"/></svg>
+        </a>
+        <a class="soc fb" href="https://www.facebook.com/profile.php?id=61591724108695" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.09 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.49h-2.79V24C19.61 23.09 24 18.1 24 12.07z"/></svg>
+        </a>
+      </div>
       <p class="fnames">Atlas clínico interactivo del cuerpo humano · Proyecto académico</p>
       <p class="fnames">Integrantes: Karen Nohelia Holguín · Britney Rogel · Tatiana Suárez · Krysthel Romero · Angie Piguave</p>
       <p class="copy">© 2026 AnatomíaViva · Facultad de Ciencias Médicas, Universidad de Guayaquil.</p>
