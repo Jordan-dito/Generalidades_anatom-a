@@ -194,6 +194,30 @@
     .pod-video .video-player{border-radius:0;box-shadow:none;border:none;border-top:1px solid var(--line);margin-top:auto;}
     .pod-video .video-player video{aspect-ratio:16/9;}
 
+    /* ---------- EVALUACIONES ---------- */
+    #evaluaciones{background:linear-gradient(180deg,var(--bg) 0%,#e6eef4 100%);}
+    .quiz-wrap{display:grid;grid-template-columns:1.45fr 1fr;gap:36px;align-items:stretch;}
+    .quiz-embed{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--line);background:#fff;display:flex;flex-direction:column;transition:box-shadow .35s;}
+    .quiz-embed:hover{box-shadow:var(--glow);}
+    .quiz-embed .qe-head{display:flex;align-items:center;gap:12px;padding:18px 24px;border-bottom:1px solid var(--line);}
+    .quiz-embed .qe-head .qi{width:42px;height:42px;border-radius:12px;background:linear-gradient(140deg,#2b6cb0,#12a3a0);color:#fff;display:grid;place-items:center;font-size:1.2rem;flex-shrink:0;}
+    .quiz-embed .qe-head strong{color:var(--navy);display:block;font-size:1rem;}
+    .quiz-embed .qe-head small{color:var(--muted);font-size:.8rem;}
+    .quiz-embed iframe{width:100%;flex:1;min-height:480px;border:0;display:block;background:#f1f5f8;}
+    .quiz-list{display:flex;flex-direction:column;gap:14px;}
+    .quiz-list-title{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal-2);font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px;}
+    .quiz-item{display:flex;gap:15px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:17px;padding:16px 18px;transition:transform .25s var(--ease),box-shadow .25s,border-color .25s;box-shadow:var(--shadow-xs);}
+    .quiz-item:hover{transform:translateX(5px);box-shadow:var(--shadow-sm);border-color:rgba(18,163,160,.4);}
+    .quiz-item .qa{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-weight:800;font-size:.95rem;color:#fff;flex-shrink:0;box-shadow:var(--shadow-xs);}
+    .quiz-item .qt{min-width:0;}
+    .quiz-item strong{display:block;font-size:.95rem;color:var(--navy);font-weight:700;line-height:1.3;}
+    .quiz-item small{color:var(--muted);font-size:.79rem;}
+    .quiz-item .plat{display:inline-flex;align-items:center;gap:5px;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:12px;margin-top:5px;}
+    .plat.wg{background:var(--teal-soft);color:var(--teal-2);}
+    .plat.kh{background:#f3e8fb;color:#8a3ab9;}
+    .quiz-item .go{margin-left:auto;flex-shrink:0;background:var(--navy);color:#fff;border-radius:22px;padding:9px 18px;font-size:.82rem;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:background .25s,transform .25s;}
+    .quiz-item .go:hover{background:var(--teal);transform:translateY(-2px);}
+
     /* ---------- EQUIPO ---------- */
     #equipo{background:var(--bg);}
     .team-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;}
@@ -297,6 +321,8 @@
     @media(max-width:1024px){
       .video-wrap{grid-template-columns:1fr;}
       .pod-grid{grid-template-columns:1fr;}
+      .quiz-wrap{grid-template-columns:1fr;}
+      .quiz-embed iframe{min-height:420px;}
     }
     @media(max-width:960px){
       .cards,.test-grid{grid-template-columns:1fr 1fr;}
@@ -354,6 +380,7 @@
         <li><a href="#servicios">Servicios</a></li>
         <li><a href="#videos">Videoteca</a></li>
         <li><a href="#podcast">Podcast</a></li>
+        <li><a href="#evaluaciones">Evaluaciones</a></li>
         <li><a href="#equipo">Equipo</a></li>
         <li><a href="#contacto" class="nav-cta">Contacto</a></li>
       </ul>
@@ -383,9 +410,9 @@
   <!-- STATS -->
   <div class="stats">
     <div class="container">
-      <div class="stat"><div class="num">360°</div><div class="lbl">Visión interactiva</div></div>
       <div class="stat"><div class="num">5</div><div class="lbl">Videos educativos</div></div>
       <div class="stat"><div class="num">2</div><div class="lbl">Episodios de podcast</div></div>
+      <div class="stat"><div class="num">5</div><div class="lbl">Evaluaciones interactivas</div></div>
       <div class="stat"><div class="num">100%</div><div class="lbl">Acceso gratuito</div></div>
     </div>
   </div>
@@ -506,6 +533,57 @@
               Tu navegador no soporta la reproducción de video.
             </video>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVALUACIONES -->
+  <section id="evaluaciones">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">Ponte a prueba</span>
+        <h2>Evaluaciones interactivas</h2>
+        <p>Cada integrante del equipo preparó un cuestionario para que midas lo aprendido. Juega el quiz destacado aquí mismo o abre los demás en su plataforma.</p>
+      </div>
+      <div class="quiz-wrap reveal">
+        <div class="quiz-embed">
+          <div class="qe-head">
+            <span class="qi">📝</span>
+            <div>
+              <strong>Quiz destacado — Angie Piguave</strong>
+              <small>Respóndelo directamente aquí, sin salir de la página</small>
+            </div>
+          </div>
+          <iframe src="https://wayground.com/embed/quiz/6a556cd814fa17868ce3c365" title="Quiz de Angie Piguave en Wayground" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="quiz-list">
+          <div class="quiz-list-title">🎯 Todos los cuestionarios</div>
+          <a class="quiz-item" href="https://create.kahoot.it/my-library/kahoots/all" target="_blank" rel="noopener">
+            <span class="qa a1">NH</span>
+            <span class="qt"><strong>Quiz de Karen Holguín</strong><small>Coordinación General</small><br><span class="plat kh">Kahoot!</span></span>
+            <span class="go">Jugar ↗</span>
+          </a>
+          <a class="quiz-item" href="https://wayground.com/activity/admin/quiz/6a554d384ff12573fd5fc554" target="_blank" rel="noopener">
+            <span class="qa a2">BR</span>
+            <span class="qt"><strong>Quiz de Britney Rogel</strong><small>Contenido y Recursos</small><br><span class="plat wg">Wayground</span></span>
+            <span class="go">Jugar ↗</span>
+          </a>
+          <a class="quiz-item" href="https://wayground.com/activity/admin/quiz/6a5576d04df34b49f957316f" target="_blank" rel="noopener">
+            <span class="qa a3">TS</span>
+            <span class="qt"><strong>Quiz de Tatiana Suárez</strong><small>Diseño Visual</small><br><span class="plat wg">Wayground</span></span>
+            <span class="go">Jugar ↗</span>
+          </a>
+          <a class="quiz-item" href="https://wayground.com/activity/admin/quiz/6a555d784ff12573fd5fc952" target="_blank" rel="noopener">
+            <span class="qa a4">KR</span>
+            <span class="qt"><strong>Quiz de Krysthel Romero</strong><small>Producción Audiovisual</small><br><span class="plat wg">Wayground</span></span>
+            <span class="go">Jugar ↗</span>
+          </a>
+          <a class="quiz-item" href="https://wayground.com/embed/quiz/6a556cd814fa17868ce3c365" target="_blank" rel="noopener">
+            <span class="qa a5">AP</span>
+            <span class="qt"><strong>Quiz de Angie Piguave</strong><small>Comunidad y Difusión</small><br><span class="plat wg">Wayground</span></span>
+            <span class="go">Jugar ↗</span>
+          </a>
         </div>
       </div>
     </div>
